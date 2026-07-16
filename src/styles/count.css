@@ -1,0 +1,106 @@
+/* Countdown Specific Styles - Scoped */
+
+.countdown-page .yes-btn {
+  margin-top: 20px;
+  padding: 16px 42px;
+  font-size: 1.15rem;
+  min-width: 180px;
+}
+
+/* Rest of countdown styles */
+.countdown-page {
+  width: 100%;
+  height: 100vh;
+  background: #000;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ffe6f0;
+  padding: 20px;
+}
+
+.fireworks-bg {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.countdown-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 620px;
+  width: 100%;
+}
+
+.countdown-card {
+  background: rgba(13, 13, 13, 0.95);
+  border: 2px solid #ff4d8d;
+  border-radius: 24px;
+  padding: 45px 30px;
+  box-shadow: 0 0 50px rgba(255, 77, 141, 0.7);
+}
+
+.countdown-card h2 {
+  color: #ff4d8d;
+  font-size: 22px;
+    margin-bottom: 8px;
+    font-family: inherit;
+}
+
+.date {
+  font-size: 1.5rem;
+  color: #ffd700;
+  margin-bottom: 25px;
+}
+
+.timer {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  margin: 35px 0;
+}
+
+.time-block {
+  background: rgba(255, 77, 141, 0.12);
+  padding: 18px 14px;
+  border-radius: 16px;
+  min-width: 95px;
+  border: 1px solid rgba(255, 77, 141, 0.4);
+}
+
+.time-value {
+  font-size: 2.9rem;
+  font-weight: bold;
+  color: #ff4d8d;
+}
+
+.time-label {
+  font-size: x-small;;
+  color: #ddd;
+  margin-top: 6px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.birthday-message h1 {
+  font-size: 3.2rem;
+  color: #ffd700;
+}
+
+@media (max-width: 480px) {
+  .countdown-card {
+    padding: 35px 20px;
+  }
+  .timer { gap: 12px; }
+  .time-block { min-width: 70px; padding: 14px 8px; }
+  .time-value { font-size: 2.2rem; }
+  .countdown-page .yes-btn {
+    padding: 14px 32px;
+    font-size: 1.05rem;
+  }
+}

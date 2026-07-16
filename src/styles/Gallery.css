@@ -1,0 +1,1175 @@
+/*==========================
+      Google Fonts
+===========================*/
+
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Quicksand:wght@400;500;600;700&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Quicksand', sans-serif;
+}
+
+.gallery-wrapper{
+    --cream:  #fbf8fa;
+    --tan:    #e9d3ba;
+    --blush:  #e3adb4;
+    --petal:  #e0bcd8;
+    --lilac:  #c09fd6;
+    --plum:   #a47190;
+    --wine:   #8c5459;
+    --stone:  #aba0a4;
+    --charcoal:#5b5156;
+    --ink:    #34292d;
+
+    position:relative;
+    min-height:100vh;
+    overflow:hidden;
+    background: var(--cream);
+}
+
+.gallery-section{
+
+    position:relative;
+    width:100%;
+    min-height:100vh;
+    z-index:2;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+
+    padding:70px 20px;
+
+    overflow:hidden;
+}
+
+/*==========================
+   Soft floating accents (depth)
+===========================*/
+
+.gallery-section::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    z-index:-1;
+    pointer-events:none;
+    background:
+        radial-gradient(circle 260px at 8% 12%, rgba(224,188,216,.45), transparent 70%),
+        radial-gradient(circle 220px at 94% 18%, rgba(233,211,186,.4), transparent 70%),
+        radial-gradient(circle 280px at 88% 92%, rgba(227,173,180,.35), transparent 70%),
+        radial-gradient(circle 200px at 6% 90%, rgba(192,159,214,.35), transparent 70%);
+    animation: driftGlow 16s ease-in-out infinite alternate;
+}
+
+@keyframes driftGlow{
+    0%{ transform: translateY(0) scale(1); }
+    100%{ transform: translateY(-18px) scale(1.05); }
+}
+
+/*==========================
+    Background Slideshow
+===========================*/
+.gallery-bg{
+    position:absolute;
+    inset:0;
+    z-index:0;
+    overflow:hidden;
+    border-radius:40px;
+}
+
+.gallery-bg .bg{
+
+    position:absolute;
+    inset:0;
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    filter:blur(6px) saturate(1.05);
+
+    transform:scale(1.1);
+
+}
+
+.current{
+
+    opacity:.6;
+
+}
+
+.next{
+
+    opacity:0;
+
+}
+
+.fade-out{
+
+    animation:bgOut 1.2s ease forwards;
+
+}
+
+.fade-in{
+
+    animation:bgIn 1.2s ease forwards;
+
+}
+
+@keyframes bgOut{
+
+    from{
+
+        opacity:.6;
+        transform:scale(1.1);
+
+    }
+
+    to{
+
+        opacity:0;
+        transform:scale(1.22);
+
+    }
+
+}
+
+@keyframes bgIn{
+
+    from{
+
+        opacity:0;
+        transform:scale(1.02);
+
+    }
+
+    to{
+
+        /* matches .current's steady-state opacity so there's no jump
+           the instant the slide becomes the new "current" image */
+        opacity:.6;
+        transform:scale(1.1);
+
+    }
+
+}
+
+.gallery-bg .bg.active{
+
+    opacity:.22;
+
+    transform:scale(1.22);
+
+}
+
+/* Warm pastel wash over the slideshow, matching the palette instead of flat white */
+
+.gallery-section::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    z-index:-1;
+
+    background:linear-gradient(
+        to bottom,
+        rgba(251,248,250,0.15) 0%,
+        rgba(240,222,232,0.28) 20%,
+        rgba(227,173,180,0.4) 50%,
+        rgba(251,248,250,0.88) 80%,
+        rgba(251,248,250,0.98) 100%
+    );
+    backdrop-filter: blur(1px);
+}
+
+/*==========================
+        Heading
+===========================*/
+
+.gallery-title{
+
+display:flex;
+
+align-items:center;
+
+gap:12px;
+
+padding:10px 22px;
+
+border-radius:40px;
+
+background:rgba(255,255,255,.8);
+
+backdrop-filter:blur(18px);
+
+box-shadow:
+0 15px 35px rgba(140,84,89,.15),
+0 0 0 1px rgba(224,188,216,.5) inset;
+
+margin-bottom:40px;
+
+font-weight:600;
+
+font-family:"Baloo 2", cursive;
+
+animation: titlePop .6s cubic-bezier(.34,1.56,.64,1) both;
+
+}
+
+@keyframes titlePop{
+    from{ opacity:0; transform: translateY(-14px) scale(.9); }
+    to{ opacity:1; transform: translateY(0) scale(1); }
+}
+
+.gallery-title svg{
+
+color: var(--plum);
+
+font-size:18px;
+
+}
+
+.gallery-title span{
+
+font-size:20px;
+
+font-weight:700;
+
+color: var(--ink);
+
+}
+
+.gallery-title small{
+
+background: linear-gradient(135deg, var(--petal), var(--blush));
+
+padding:4px 10px;
+
+border-radius:30px;
+
+color:#fff;
+
+font-size:13px;
+font-family:"Quicksand", sans-serif;
+font-weight:600;
+
+}
+
+
+/*==========================
+      Gallery Grid
+===========================*/
+
+.gallery-grid{
+
+display:grid;
+
+grid-template-columns:
+
+repeat(2,330px);
+
+gap:30px;
+
+align-items:center;
+
+justify-content:center;
+
+}
+
+
+/*==========================
+      Cards
+===========================*/
+
+.gallery-card{
+
+position:relative;
+
+overflow:hidden;
+
+border-radius:20px;
+
+background:#fff;
+
+cursor:pointer;
+
+box-shadow:
+0 15px 35px rgba(140,84,89,.18);
+
+transition: transform .45s cubic-bezier(.34,1.2,.64,1), box-shadow .45s ease;
+
+opacity:0;
+
+animation: cardIn .6s ease forwards;
+
+}
+
+.gallery-card:nth-child(1){ animation-delay: .05s; }
+.gallery-card:nth-child(2){ animation-delay: .2s; }
+
+@keyframes cardIn{
+    from{ opacity:0; transform: translateY(24px) scale(.96); }
+    to{ opacity:1; transform: translateY(0) scale(1); }
+}
+
+.gallery-card::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    border-radius:20px;
+    box-shadow: inset 0 0 0 2px rgba(255,255,255,.5);
+    pointer-events:none;
+}
+
+.gallery-card:hover{
+
+transform:
+
+translateY(-10px) scale(1.02) rotate(-.4deg);
+
+box-shadow: 0 24px 46px rgba(140,84,89,.3);
+
+}
+
+.gallery-card img{
+
+width:100%;
+
+height:420px;
+
+object-fit:cover;
+
+display:block;
+
+transition: transform .6s ease;
+
+}
+
+.gallery-card:hover img{
+    transform: scale(1.06);
+}
+
+.caption{
+
+position:absolute;
+
+left:0;
+
+right:0;
+
+bottom:0;
+
+padding:18px 15px;
+
+background:
+
+linear-gradient(
+
+transparent,
+
+rgba(140,84,89,.85)
+
+);
+
+color:#fff;
+
+font-size:15px;
+font-family:"Baloo 2", cursive;
+font-weight:600;
+letter-spacing:.2px;
+
+text-align:center;
+
+transform: translateY(6px);
+opacity:.92;
+transition: transform .35s ease, opacity .35s ease;
+
+}
+
+.gallery-card:hover .caption{
+    transform: translateY(0);
+    opacity:1;
+}
+
+
+/*==========================
+Open Button
+===========================*/
+
+.open-gallery{
+
+margin-top:40px;
+
+border:none;
+
+background: linear-gradient(135deg, var(--blush), var(--plum));
+
+color:#fff8f6;
+
+padding:16px 34px;
+
+min-height:52px;
+
+border-radius:40px;
+
+font-size:16px;
+
+font-family:"Baloo 2", cursive;
+
+font-weight:700;
+
+display:flex;
+
+align-items:center;
+
+gap:12px;
+
+cursor:pointer;
+
+transition: transform .35s cubic-bezier(.34,1.56,.64,1), box-shadow .35s ease;
+
+box-shadow:
+0 14px 30px rgba(140,84,89,.35);
+
+animation: gentlePulse 2.8s ease-in-out infinite;
+
+}
+
+.open-gallery svg{
+
+color:#fff8f6;
+
+}
+
+.open-gallery:hover{
+
+transform:translateY(-5px) scale(1.03);
+
+box-shadow: 0 20px 40px rgba(140,84,89,.45);
+
+animation-play-state: paused;
+
+}
+
+@keyframes gentlePulse{
+    0%,100%{ box-shadow: 0 14px 30px rgba(140,84,89,.35); }
+    50%{ box-shadow: 0 14px 34px rgba(140,84,89,.55); }
+}
+
+
+/*==========================
+Desktop Width
+===========================*/
+
+@media(max-width:1100px){
+
+.gallery-grid{
+
+grid-template-columns:repeat(2,280px);
+
+}
+
+.gallery-card img{
+
+height:360px;
+
+}
+
+}
+
+
+/*==========================
+Tablet
+===========================*/
+
+@media(max-width:768px){
+
+.gallery-grid{
+
+grid-template-columns:1fr;
+
+width:100%;
+
+max-width:380px;
+
+}
+
+.gallery-card{
+
+width:100%;
+
+}
+
+.gallery-card img{
+
+height:270px;
+
+}
+
+.gallery-title{
+
+font-size:15px;
+
+}
+
+.gallery-title span{
+
+font-size:17px;
+
+}
+
+}
+
+
+/*==========================
+Mobile
+===========================*/
+
+@media(max-width:480px){
+
+.gallery-section{
+
+padding:50px 15px;
+
+}
+
+.gallery-title{
+
+padding:10px 18px;
+
+}
+
+.gallery-card img{
+
+height:230px;
+
+}
+
+.open-gallery{
+
+padding:13px 22px;
+
+font-size:14px;
+
+}
+
+}
+/*=========================
+        Modal
+=========================*/
+
+.gallery-modal{
+
+position:fixed;
+top:0;
+left:0;
+
+width:100%;
+height:100vh;
+height:100dvh;
+
+background: radial-gradient(circle at 50% 40%, rgba(90,58,66,.96), rgba(24,17,20,.97));
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+z-index:9999;
+
+animation:fadeIn .4s ease;
+
+overflow:hidden;
+
+padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+
+}
+
+@keyframes fadeIn{
+
+from{
+
+opacity:0;
+
+}
+
+to{
+
+opacity:1;
+
+}
+
+}
+
+
+/*=========================
+        Polaroid
+=========================*/
+
+.polaroid{
+
+position:relative;
+
+background: var(--cream);
+
+padding:18px 18px 55px;
+
+border-radius:10px;
+
+width:380px;
+
+max-width:90%;
+
+box-shadow:
+0 30px 60px rgba(0,0,0,.55),
+0 0 0 1px rgba(224,188,216,.5);
+
+transform:rotate(-2deg);
+
+animation:pop .45s ease;
+
+transition: transform .35s ease, box-shadow .35s ease;
+
+}
+
+@keyframes pop{
+
+from{
+
+transform:scale(.75) rotate(-10deg);
+
+opacity:0;
+
+}
+
+to{
+
+transform:scale(1) rotate(-2deg);
+
+opacity:1;
+
+}
+
+}
+
+.polaroid:hover{
+
+transform:rotate(0deg) scale(1.02);
+
+box-shadow:
+0 34px 70px rgba(0,0,0,.6),
+0 0 0 1px rgba(224,188,216,.6);
+
+}
+
+.polaroid img{
+
+width:100%;
+
+height:520px;
+
+object-fit:cover;
+
+border-radius:4px;
+
+transition:.45s;
+
+cursor:zoom-in;
+
+}
+
+
+/* Caption */
+
+.polaroid p{
+
+margin-top:18px;
+
+font-size:18px;
+
+font-family:"Baloo 2", cursive;
+
+font-weight:600;
+
+color: var(--wine);
+
+}
+
+
+/* Counter */
+
+.polaroid span{
+
+position:absolute;
+
+right:25px;
+bottom:18px;
+
+font-size:14px;
+
+font-family:"Quicksand", sans-serif;
+
+color: var(--stone);
+
+}
+
+
+/*=========================
+     Tape Effect
+=========================*/
+
+.polaroid::before{
+
+content:"";
+
+position:absolute;
+
+width:120px;
+height:28px;
+
+background: var(--tan);
+
+top:-12px;
+left:50%;
+
+transform:
+
+translateX(-50%)
+
+rotate(-4deg);
+
+opacity:.9;
+
+box-shadow:
+0 3px 8px rgba(140,84,89,.25);
+
+}
+
+
+/* Bottom Tape */
+
+.polaroid::after{
+
+content:"";
+
+position:absolute;
+
+width:70px;
+height:22px;
+
+background: var(--petal);
+
+bottom:10px;
+right:15px;
+
+transform:rotate(10deg);
+
+opacity:.75;
+
+}
+
+
+/*=========================
+Navigation Arrows
+=========================*/
+
+.arrow{
+
+position:absolute;
+
+width:54px;
+height:54px;
+
+border:none;
+
+border-radius:50%;
+
+background:rgba(255,255,255,.14);
+
+backdrop-filter:blur(15px);
+
+color:#fff;
+
+font-size:22px;
+
+cursor:pointer;
+
+transition: transform .3s cubic-bezier(.34,1.56,.64,1), background .3s ease, color .3s ease;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+}
+
+.arrow:hover{
+
+background: linear-gradient(135deg, var(--blush), var(--plum));
+
+color:#fff;
+
+transform:scale(1.12);
+
+}
+
+.left{
+
+left:8%;
+
+}
+
+.right{
+
+right:8%;
+
+}
+
+
+/*=========================
+Close Button
+=========================*/
+
+.close-btn{
+
+position:absolute;
+
+top:30px;
+right:30px;
+
+width:45px;
+height:45px;
+
+border:none;
+
+border-radius:50%;
+
+background:rgba(255,255,255,.14);
+
+color:#fff;
+
+font-size:18px;
+
+cursor:pointer;
+
+backdrop-filter:blur(12px);
+
+transition: transform .3s ease, background .3s ease, color .3s ease;
+
+}
+
+.close-btn:hover{
+
+background: var(--wine);
+
+color:#fff;
+
+transform:rotate(90deg);
+
+}
+
+
+/*=========================
+Bottom Controls
+=========================*/
+
+.viewer-controls{
+
+position:absolute;
+
+bottom:30px;
+
+left:50%;
+
+transform:translateX(-50%);
+
+display:flex;
+
+gap:16px;
+
+}
+
+.viewer-controls button{
+
+width:48px;
+height:48px;
+
+border:none;
+
+border-radius:50%;
+
+background:rgba(255,255,255,.14);
+
+backdrop-filter:blur(15px);
+
+color:white;
+
+font-size:18px;
+
+cursor:pointer;
+
+transition: transform .3s ease, background .3s ease, color .3s ease;
+
+}
+
+.viewer-controls button:hover{
+
+background: linear-gradient(135deg, var(--lilac), var(--plum));
+
+color:#fff;
+
+transform: translateY(-3px);
+
+}
+
+
+/*=========================
+Desktop / small laptop
+=========================*/
+
+@media(max-width:991px){
+
+.polaroid{
+
+width:330px;
+
+}
+
+.polaroid img{
+
+height:430px;
+
+}
+
+.left{
+
+left:20px;
+
+}
+
+.right{
+
+right:20px;
+
+}
+
+}
+
+
+/*=========================
+Mobile — modal
+=========================*/
+
+@media(max-width:576px){
+
+.gallery-modal{
+
+padding:16px;
+
+}
+
+.polaroid{
+
+width:100%;
+
+padding:14px 14px 48px;
+
+transform:none;
+
+}
+
+.polaroid:hover{
+    transform:none;
+}
+
+.polaroid img{
+
+height:52vh;
+min-height:280px;
+
+}
+
+.arrow{
+
+width:44px;
+height:44px;
+font-size:18px;
+
+}
+
+.left{
+
+left:8px;
+
+}
+
+.right{
+
+right:8px;
+
+}
+
+.close-btn{
+
+top:14px;
+
+right:14px;
+
+width:40px;
+height:40px;
+font-size:16px;
+
+}
+
+.viewer-controls{
+
+bottom:16px;
+
+gap:12px;
+
+}
+
+.viewer-controls button{
+
+width:44px;
+height:44px;
+font-size:16px;
+
+}
+
+}
+
+/*==========================
+Mobile — grid/section
+==========================*/
+
+@media(max-width:480px){
+  .gallery-section{
+    padding: 45px 15px 30px;
+  }
+  
+  .gallery-title{
+    padding: 10px 18px;
+    margin-bottom: 30px;
+  }
+
+  .gallery-grid{
+    gap: 18px;
+  }
+
+  .gallery-card img{
+    height: 210px;
+  }
+
+  .open-gallery{
+    padding: 13px 22px;
+    font-size: 14px;
+    margin-top: 25px;
+  }
+
+  .next-page-btn {
+    margin-top: 35px;
+    margin-bottom: 20px;
+    padding: 14px 28px;
+    font-size: 1rem;
+  }
+}
+
+/* Funny Next Button */
+.next-page-btn {
+  margin-top: 50px;
+  margin-bottom: 30px;
+  padding: 16px 36px;
+  min-height:52px;
+  font-size: 1.1rem;
+  font-family: "Baloo 2", cursive;
+  font-weight: 700;
+  background: var(--cream);
+  color: var(--plum);
+  border: 2px solid var(--blush);
+  border-radius: 50px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 10px 25px rgba(140, 84, 89, 0.2);
+  transition: all 0.4s ease;
+}
+
+.next-page-btn:hover {
+  background: linear-gradient(135deg, var(--blush), var(--plum));
+  color: white;
+  border-color: transparent;
+  transform: translateY(-6px) scale(1.05);
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce){
+    .gallery-section::after,
+    .gallery-title,
+    .gallery-card,
+    .open-gallery,
+    .gallery-bg .bg{
+        animation-duration:.01ms !important;
+        animation-iteration-count:1 !important;
+    }
+}
+/* ======================
+   Swipe Container
+====================== */
+.swipe-container {
+  position: relative;
+  width: 380px;
+  max-width: 90%;
+  height: 580px;
+  display: grid;
+  place-items: center;
+  margin: 0 auto;
+}
+
+.swipe-hint {
+  position: absolute;
+  bottom: 90px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255,255,255,0.75);
+  font-size: 14px;
+  font-family: "Quicksand", sans-serif;
+  text-align: center;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Improve polaroid for swipe */
+.polaroid {
+  cursor: grab;
+  user-select: none;
+}
+
+.polaroid:active {
+  cursor: grabbing;
+}
+.polaroid {
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;           /* Important for mobile */
+}
+
+.polaroid:active {
+  cursor: grabbing;
+}
+
+/* Better mobile experience */
+@media (max-width: 576px) {
+  .polaroid {
+    width: 100%;
+    max-width: 340px;
+    padding: 14px 14px 48px;
+  }
+  
+  .polaroid img {
+    height: 52vh;
+    min-height: 280px;
+  }
+}

@@ -1,0 +1,560 @@
+/* ===========================
+   FULL SCREEN SCENE
+=========================== */
+
+html, body, #root{
+height:100%;
+margin:0;
+padding:0;
+}
+
+.vh-scene{
+position:fixed;
+inset:0;
+width:100vw;
+height:100vh;
+height:100svh;
+height:100dvh;
+overflow:hidden;
+background:#000;
+z-index:99999;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+.scene{
+position:relative;
+width:100%;
+height:100%;
+overflow:hidden;
+transition:4s cubic-bezier(0.23, 1, 0.32, 1);
+transform-origin:center center;
+}
+
+.scene.zoom{
+transform:scale(1.12);
+}
+
+/* ===========================
+   BACKGROUND
+=========================== */
+
+.night{
+position:absolute;
+inset:0;
+width:100%;
+height:100%;
+object-fit:cover;
+image-rendering: -webkit-optimize-contrast; /* sharper on mobile */
+}
+
+.overlay{
+position:absolute;
+inset:0;
+background:linear-gradient(
+to bottom,
+rgba(0,0,0,.15),
+rgba(0,0,0,.55)
+);
+}
+
+/* ===========================
+   MOON
+=========================== */
+
+.moon{
+position:absolute;
+top:6%;
+right:53%;
+width:clamp(70px,12vw,130px);
+animation:
+moonGlow 3s ease-in-out infinite,
+moonFloat 7s ease-in-out infinite;
+z-index:2;
+will-change: filter, transform;
+}
+
+/* ===========================
+   CLOUD
+=========================== */
+
+.cloud{
+position:absolute;
+top:12%;
+left:-300px;
+width:clamp(150px,24vw,260px);
+opacity:.8;
+animation:
+cloudMove 55s linear infinite; /* slightly slower for smoothness */
+z-index:3;
+will-change: transform;
+}
+
+/* ===========================
+   BOY & GIRL
+=========================== */
+
+.boy,
+.girl{
+position:absolute;
+bottom:0;
+height:clamp(200px,38vh,360px);
+z-index:10;
+transform:translateX(0);
+transition:transform 7.5s cubic-bezier(0.25, 0.1, 0.25, 1); /* smoother curve */
+transform-style:preserve-3d;
+backface-visibility:hidden;
+will-change:transform;
+image-rendering: -webkit-optimize-contrast;
+}
+
+.boy{
+left:4%;
+}
+
+.girl{
+right:4%;
+}
+
+.boy-walk{
+transform:translateX(30vw);
+}
+
+.girl-walk{
+transform:translateX(-26vw); /* adjusted slightly for visual balance */
+}
+
+/* ===========================
+   FACE & HUG
+=========================== */
+
+.face,
+.hug{
+position:absolute;
+bottom:0;
+left:50%;
+height:clamp(240px,45vh,430px);
+transform:translateX(-50%);
+will-change:transform, opacity;
+image-rendering: -webkit-optimize-contrast;
+}
+
+.face{
+z-index:20;
+animation:
+fade .8s cubic-bezier(0.23, 1, 0.32, 1),
+breathe 4.2s ease-in-out infinite;
+}
+
+.hug{
+z-index:25;
+animation:
+fade .8s cubic-bezier(0.23, 1, 0.32, 1),
+breathe 3.2s ease-in-out infinite;
+}
+
+/* ===========================
+   MESSAGE
+=========================== */
+
+.message{
+position:absolute;
+bottom:7%;
+width:100%;
+text-align:center;
+color:white;
+z-index:60;
+animation:fadeUp 1.2s cubic-bezier(0.23, 1, 0.32, 1);
+padding:0 16px;
+box-sizing:border-box;
+}
+
+.message h1{
+font-size:clamp(22px,5.5vw,44px);
+margin-bottom:10px;
+text-shadow:
+0 0 20px crimson;
+color: #fff;
+}
+
+.message p{
+font-size:clamp(14px,3.5vw,20px);
+opacity:.9;
+margin-top:10px;
+}
+
+.message button{
+margin-top:25px;
+padding:14px 34px;
+border:none;
+border-radius:40px;
+font-size:clamp(14px,3.5vw,18px);
+cursor:pointer;
+background:#ff2d55;
+color:white;
+box-shadow:
+0 0 25px crimson;
+transition: all .4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.message button:hover{
+transform:scale(1.08);
+box-shadow:
+0 0 50px crimson;
+}
+
+/* ===========================
+   HEART EXPLOSION / PETALS / SPARKLES / FIREFLIES
+=========================== */
+
+.heart-explosion{
+position:absolute;
+left:50%;
+top:50%;
+transform:translate(-50%,-50%);
+pointer-events:none;
+z-index:40;
+}
+
+.heart-explosion span{
+position:absolute;
+font-size:30px;
+animation:
+explode 3.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+animation-delay:var(--delay);
+will-change: transform, opacity;
+}
+
+.petals{
+position:absolute;
+inset:0;
+pointer-events:none;
+z-index:35;
+overflow:hidden;
+}
+
+.petal{
+position:absolute;
+top:-60px;
+width:24px;
+animation:
+fall 9.5s cubic-bezier(0.25, 0.1, 0.25, 1) infinite;
+will-change: transform;
+}
+
+/* SPARKLES */
+.sparkle{
+position:absolute;
+width:8px;
+height:8px;
+background:white;
+border-radius:50%;
+box-shadow:
+0 0 18px gold;
+animation:
+twinkle 1.8s ease-in-out infinite;
+z-index:30;
+will-change: transform, opacity;
+}
+
+/* FIREFLIES */
+.firefly{
+position:absolute;
+width:6px;
+height:6px;
+border-radius:50%;
+background:#ffd95e;
+box-shadow:
+0 0 20px gold;
+animation:
+firefly 7.5s ease-in-out infinite;
+z-index:30;
+will-change: transform;
+}
+
+/* ===========================
+   ANIMATIONS - IMPROVED EASING & TIMING
+=========================== */
+
+@keyframes fade{
+from{
+opacity:0;
+transform: translateX(-50%) scale(.75);
+}
+to{
+opacity:1;
+transform: translateX(-50%) scale(1);
+}
+}
+
+@keyframes fadeUp{
+from{
+opacity:0;
+transform: translateY(35px);
+}
+to{
+opacity:1;
+transform: translateY(0);
+}
+}
+
+@keyframes breathe{
+0%, 100%{
+transform: translateX(-50%) scale(1);
+}
+45%{
+transform: translateX(-50%) scale(1.028);
+}
+}
+
+@keyframes explode{
+0%{
+opacity:1;
+transform: translate(0,0) scale(.2) rotate(0deg);
+}
+100%{
+opacity:0;
+transform: translate(var(--x), var(--y)) scale(2.4) rotate(720deg);
+}
+}
+
+@keyframes fall{
+0%{
+transform: translateY(-60px) rotate(0deg) scale(1);
+}
+100%{
+transform: translateY(120vh) rotate(720deg) scale(0.85);
+}
+}
+
+@keyframes twinkle{
+0%, 100%{
+opacity:.25;
+transform:scale(0.65);
+}
+50%{
+opacity:1;
+transform:scale(1.65);
+}
+}
+
+@keyframes firefly{
+0%, 100%{
+transform:translate(0,0);
+}
+22%{
+transform:translate(55px, -45px);
+}
+48%{
+transform:translate(-48px, 38px);
+}
+72%{
+transform:translate(72px, -55px);
+}
+}
+
+/* Moon & Cloud */
+@keyframes moonGlow{
+0%,100%{
+filter: drop-shadow(0 0 12px white);
+}
+50%{
+filter: drop-shadow(0 0 48px white);
+}
+}
+
+@keyframes moonFloat{
+0%,100%{
+transform: translateY(0);
+}
+50%{
+transform: translateY(9px);
+}
+}
+
+@keyframes cloudMove{
+from{
+transform:translateX(-15%);
+}
+to{
+transform:translateX(170vw);
+}
+}
+
+/* ===========================
+   HEART RAIN - MUCH SMOOTHER
+=========================== */
+
+.heart-rain{
+position:absolute;
+inset:0;
+overflow:hidden;
+pointer-events:none;
+z-index:25;
+}
+
+.floating-heart{
+position:absolute;
+top:-50px;
+animation:heartRain linear infinite;
+filter:drop-shadow(0 0 9px #ff3d7f);
+will-change: transform, opacity;
+}
+
+@keyframes heartRain{
+0%{
+transform:
+translateY(-110px)
+translateX(0)
+rotate(0deg)
+scale(0.65);
+opacity:0;
+}
+10%{
+opacity:0.95;
+}
+25%{
+transform:
+translateY(22vh)
+translateX(-12px)
+rotate(28deg)
+scale(0.9);
+}
+45%{
+transform:
+translateY(46vh)
+translateX(11px)
+rotate(68deg)
+scale(1.05);
+}
+65%{
+transform:
+translateY(68vh)
+translateX(-9px)
+rotate(135deg)
+scale(0.98);
+}
+82%{
+transform:
+translateY(88vh)
+translateX(13px)
+rotate(205deg)
+scale(0.88);
+}
+100%{
+transform:
+translateY(125vh)
+translateX(0)
+rotate(255deg)
+scale(0.7);
+opacity:0;
+}
+}
+
+/* Breathing override */
+.breathing{
+animation: breathing 3.5s ease-in-out infinite;
+}
+
+@keyframes breathing{
+0%, 100%{
+transform:translateX(-50%) scale(1);
+}
+48%{
+transform:translateX(-50%) scale(1.022);
+}
+}
+
+/* ===========================
+   MOBILE PERFORMANCE & SMOOTHNESS
+=========================== */
+
+@media(max-width:768px){
+  .moon{
+    width: 118px;
+    top: -8%;
+    right:50%;
+  }
+
+  .night{
+    object-fit:cover;
+    object-position:center center;
+  }
+
+  .boy-walk{
+    transform:translateX(27vw);
+  }
+
+  .girl-walk{
+    transform:translateX(-27vw);
+  }
+
+  .heart-explosion span{
+    font-size:24px;
+  }
+
+  .petal{
+    width:19px;
+  }
+
+  /* Reduce visual load on mobile */
+  .floating-heart{
+      position:absolute;
+    top:-20px !important;
+    font-size:18px !important;
+  }
+
+  /* Performance optimizations */
+  .boy, .girl, .face, .hug, .moon, .cloud {
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+
+  /* Slightly slower / lighter animations on mobile */
+  .heart-rain .floating-heart{
+    animation-duration: 10s !important;
+}
+
+  /* Reduce heart count impact via CSS (still 15 in JSX, but lighter) */
+  .floating-heart {
+    filter: drop-shadow(0 0 6px #ff3d7f);
+  }
+
+  /* Smoother walking transition on mobile */
+  .boy, .girl {
+    transition: transform 7s cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+}
+
+/* Extra mobile GPU boost */
+@media (max-width: 768px) and (orientation: portrait) {
+  .vh-scene {
+    position:fixed;
+    top:0;
+    left:0;
+    width:100svh;
+    height:100vw;
+    transform-origin:top left;
+    transform:rotate(90deg) translateY(-100%);
+  }
+
+  /* Reduce heavy effects */
+  .sparkle, .firefly, .petal {
+    display: none; /* Optional: comment out if you want to keep them */
+  }
+}
+
+/* Landscape force on portrait mobile */
+@media screen and (max-width:768px) and (orientation:portrait){
+.vh-scene{
+position:fixed;
+top:0;
+left:0;
+width:100svh;
+height:100vw;
+transform-origin:top left;
+transform:rotate(90deg) translateY(-100%);
+}
+}

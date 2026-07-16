@@ -1,0 +1,613 @@
+/* ======================================================
+   TOKENS — pulled from the Bloomy floral palette
+====================================================== */
+.gift-section {
+  --cream: #fdf6f2;
+  --blush: #f6d9e2;
+  --petal-pink: #f1b9c8;
+  --coral: #e2938a;
+  --lilac: #d6bfe8;
+  --orchid: #a768c4;
+  --wine: #7a4a5c;
+  --fawn: #c9a27a;
+  --ink: #3d2c2e;
+
+  min-height: 100vh;
+  padding: 120px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: linear-gradient(160deg, var(--cream) 0%, var(--blush) 45%, var(--lilac) 100%);
+  color: var(--ink);
+  position: relative;
+  overflow: hidden;
+}
+
+.gift-small {
+  color: var(--orchid);
+  letter-spacing: 6px;
+  margin-bottom: 15px;
+  font-size: 15px;
+  font-weight: 700;
+  z-index: 2;
+}
+
+.gift-section h1 {
+  font-size: 48px;
+  color: var(--wine);
+  margin-bottom: 70px;
+  text-align: center;
+  z-index: 2;
+  text-shadow: 0 4px 24px rgba(167, 104, 196, 0.25);
+}
+
+/* ======================================================
+   AMBIENT PETAL FIELD
+====================================================== */
+.petal-field {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.petal {
+  position: absolute;
+  top: -40px;
+  font-size: 20px;
+  opacity: 0.65;
+  animation: petalDrift linear infinite;
+}
+
+@keyframes petalDrift {
+  0% {
+    transform: translateY(-40px) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% { opacity: 0.7; }
+  90% { opacity: 0.5; }
+  100% {
+    transform: translateY(110vh) translateX(40px) rotate(340deg);
+    opacity: 0;
+  }
+}
+
+/* ambient red hearts, always falling in the background */
+.heart-field {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.falling-heart {
+  position: absolute;
+  top: -30px;
+  color: #e0384f;
+  opacity: 0;
+  filter: drop-shadow(0 2px 6px rgba(224, 56, 79, 0.35));
+  animation: heartFall linear infinite;
+}
+
+@keyframes heartFall {
+  0% {
+    transform: translateY(-30px) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  8% { opacity: 0.75; }
+  92% { opacity: 0.55; }
+  100% {
+    transform: translateY(110vh) translateX(-30px) rotate(-25deg);
+    opacity: 0;
+  }
+}
+
+/* ======================================================
+   3D GIFT BOX — with blooming flower lid
+====================================================== */
+.gift {
+  position: relative;
+  width: 260px;
+  height: 230px;
+  cursor: pointer;
+  perspective: 1400px;
+  z-index: 2;
+  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.gift.stage-closed:hover {
+  transform: scale(1.06) rotate(1.5deg);
+  animation: gentleFloat 3s ease-in-out infinite;
+}
+
+@keyframes gentleFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+
+.gift-hint {
+  margin-top: 22px;
+  font-size: 14px;
+  color: var(--wine);
+  opacity: 0.7;
+  letter-spacing: 2px;
+  animation: hintPulse 2.2s ease-in-out infinite;
+  z-index: 2;
+}
+
+@keyframes hintPulse {
+  0%, 100% { opacity: 0.45; }
+  50% { opacity: 0.85; }
+}
+
+/* Glow that reveals itself once the box opens */
+.gift-glow {
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  width: 200px;
+  height: 200px;
+  transform: translateX(-50%) scale(0.4);
+  background: radial-gradient(circle, rgba(255, 236, 246, 0.95) 0%, rgba(214, 191, 232, 0.5) 45%, transparent 70%);
+  border-radius: 50%;
+  opacity: 0;
+  filter: blur(2px);
+  transition: opacity 0.8s ease, transform 1.2s cubic-bezier(0.23, 1, 0.32, 1);
+  z-index: 1;
+}
+
+.gift.stage-opening .gift-glow,
+.gift.stage-opened .gift-glow {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+  animation: glowPulse 2.6s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+  0%, 100% { filter: blur(2px) brightness(1); }
+  50% { filter: blur(4px) brightness(1.15); }
+}
+
+/* --- Box body --- */
+.gift-box {
+  position: absolute;
+  bottom: 0;
+  width: 260px;
+  height: 180px;
+  transform-style: preserve-3d;
+}
+
+.gift-box-front {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(150deg, var(--coral), var(--petal-pink));
+  border-radius: 20px;
+  box-shadow:
+    0 25px 45px -14px rgba(167, 104, 196, 0.45),
+    inset 0 10px 18px rgba(255, 255, 255, 0.35);
+}
+
+.gift-box-side {
+  position: absolute;
+  top: 0;
+  right: -6px;
+  width: 18px;
+  height: 100%;
+  background: linear-gradient(180deg, #c9756f, #b45f65);
+  border-radius: 0 16px 16px 0;
+  transform: skewY(0.2deg);
+  opacity: 0.9;
+}
+
+.gift-ribbon-v {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 26px;
+  height: 100%;
+  top: 0;
+  background: linear-gradient(#fff, var(--fawn));
+  box-shadow: 0 0 14px rgba(255, 255, 255, 0.8);
+  transition: opacity 0.5s ease, transform 0.6s ease;
+}
+
+.gift-ribbon-h {
+  position: absolute;
+  top: 40%;
+  width: 100%;
+  height: 24px;
+  background: linear-gradient(#fff, var(--fawn));
+  box-shadow: 0 0 14px rgba(255, 255, 255, 0.8);
+  transition: opacity 0.5s ease, transform 0.6s ease;
+}
+
+.gift.stage-opening .gift-ribbon-v,
+.gift.stage-opened .gift-ribbon-v {
+  opacity: 0;
+  transform: translateX(-50%) scaleY(0.4);
+}
+
+.gift.stage-opening .gift-ribbon-h,
+.gift.stage-opened .gift-ribbon-h {
+  opacity: 0;
+  transform: scaleX(0.4);
+}
+
+/* --- Petal-bloom lid: the signature moment ---
+   Four petals sit closed like a flower bud on top of the box.
+   Clicking makes them unfurl outward like a blossom opening,
+   instead of a plain hinged lid. */
+.petal-lid {
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  width: 4px;
+  height: 4px;
+  transform: translateX(-50%);
+  transform-style: preserve-3d;
+  z-index: 4;
+}
+
+.petal {
+  position: absolute;
+  width: 78px;
+  height: 100px;
+  left: -39px;
+  top: -100px;
+  background: linear-gradient(160deg, var(--lilac), var(--orchid));
+  border-radius: 50% 50% 6px 6px;
+  box-shadow: 0 8px 20px -6px rgba(122, 74, 92, 0.35);
+  transform-origin: center bottom;
+  transition: transform 0.9s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.petal-top { transform: rotateX(-72deg); }
+.petal-bottom { transform-origin: center top; top: 0; transform: rotateX(72deg); }
+.petal-left {
+  width: 100px;
+  height: 78px;
+  left: -100px;
+  top: -39px;
+  transform-origin: right center;
+  border-radius: 50% 6px 6px 50%;
+  background: linear-gradient(160deg, var(--petal-pink), var(--coral));
+  transform: rotateY(72deg);
+}
+.petal-right {
+  width: 100px;
+  height: 78px;
+  left: 0;
+  top: -39px;
+  transform-origin: left center;
+  border-radius: 6px 50% 50% 6px;
+  background: linear-gradient(160deg, var(--petal-pink), var(--coral));
+  transform: rotateY(-72deg);
+}
+
+.gift.stage-opening .petal-top,
+.gift.stage-opened .petal-top { transform: rotateX(-172deg) translateZ(4px); }
+.gift.stage-opening .petal-bottom,
+.gift.stage-opened .petal-bottom { transform: rotateX(172deg) translateZ(4px); }
+.gift.stage-opening .petal-left,
+.gift.stage-opened .petal-left { transform: rotateY(168deg) translateZ(2px); }
+.gift.stage-opening .petal-right,
+.gift.stage-opened .petal-right { transform: rotateY(-168deg) translateZ(2px); }
+
+/* stagger the bloom so petals open one after another */
+.gift.stage-opening .petal-top { transition-delay: 0s; }
+.gift.stage-opening .petal-right { transition-delay: 0.08s; }
+.gift.stage-opening .petal-bottom { transition-delay: 0.16s; }
+.gift.stage-opening .petal-left { transition-delay: 0.24s; }
+
+.petal-center {
+  position: absolute;
+  left: -21px;
+  top: -21px;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 34px;
+  z-index: 6;
+  filter: drop-shadow(0 5px 8px rgba(167, 104, 196, 0.5));
+  animation: roseSpin 9s linear infinite;
+}
+
+@keyframes roseSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* --- Bow --- */
+.gift-bow {
+  position: absolute;
+  top: -34px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 34px;
+  z-index: 7;
+}
+
+.bow-loop {
+  position: absolute;
+  width: 32px;
+  height: 24px;
+  background: linear-gradient(145deg, #fff, var(--fawn));
+  border-radius: 50%;
+  top: 4px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+.bow-loop.left { left: 0; transform: rotate(-25deg); }
+.bow-loop.right { right: 0; transform: rotate(25deg); }
+.bow-knot {
+  position: absolute;
+  left: 50%;
+  top: 8px;
+  transform: translateX(-50%);
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--fawn);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.bow-fly {
+  position: absolute;
+  top: -34px;
+  left: 50%;
+  font-size: 30px;
+  z-index: 8;
+  animation: bowFly 1.4s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+@keyframes bowFly {
+  0% { transform: translate(-50%, 0) rotate(0deg) scale(1); opacity: 1; }
+  60% { transform: translate(-30%, -90px) rotate(140deg) scale(1.1); opacity: 1; }
+  100% { transform: translate(-70%, -150px) rotate(220deg) scale(0.7); opacity: 0; }
+}
+
+/* ======================================================
+   BURST
+====================================================== */
+.heart-burst {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 999;
+}
+
+.burst-item {
+  position: absolute;
+  font-size: 30px;
+  animation: burst 2.4s ease forwards;
+  animation-delay: var(--delay);
+  color: hsl(var(--hue), 75%, 68%);
+}
+
+@keyframes burst {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) scale(0.3) rotate(0deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--x), var(--y)) scale(1.7) rotate(680deg);
+  }
+}
+
+/* ======================================================
+   CAKE MODAL
+====================================================== */
+.cake-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(61, 44, 46, 0.45);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.cake-content {
+  background: linear-gradient(160deg, #fffaf7, var(--cream));
+  color: var(--wine);
+  padding: 46px 40px;
+  border-radius: 36px;
+  text-align: center;
+  max-width: 420px;
+  border: 1px solid rgba(214, 191, 232, 0.6);
+  box-shadow: 0 30px 70px rgba(167, 104, 196, 0.3);
+  animation: cakePop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes cakePop {
+  0% { opacity: 0; transform: scale(0.7) translateY(30px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.cake-content h2 { color: var(--orchid); margin-bottom: 12px; }
+.cake-text { font-size: 17px; line-height: 1.7; color: var(--ink); }
+
+.cake-scene {
+  position: relative;
+  height: 130px;
+  margin-bottom: 6px;
+}
+
+.cake-whole,
+.cake-piece {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  font-size: 110px;
+  transition: opacity 0.4s ease, transform 0.9s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.cake-piece {
+  font-size: 64px;
+  opacity: 0;
+}
+.cake-piece.left { transform: translateX(-50%); }
+.cake-piece.right { transform: translateX(-50%); }
+
+.cake-content.cut .cake-whole {
+  opacity: 0;
+  transform: translateX(-50%) scale(0.8);
+}
+.cake-content.cut .cake-piece {
+  opacity: 1;
+}
+.cake-content.cut .cake-piece.left {
+  transform: translate(-135%, 6px) rotate(-12deg);
+}
+.cake-content.cut .cake-piece.right {
+  transform: translate(35%, 6px) rotate(12deg);
+}
+
+.candles {
+  font-size: 38px;
+  margin: 18px 0 8px;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.candle {
+  position: relative;
+  animation: flame 1.2s infinite alternate;
+  transition: filter 0.5s ease, opacity 0.5s ease;
+}
+
+@keyframes flame {
+  from { transform: rotate(-10deg); }
+  to { transform: rotate(10deg); }
+}
+
+.candle.out {
+  animation: none;
+  transform: rotate(0deg);
+  filter: grayscale(1) brightness(0.9);
+  opacity: 0.55;
+}
+
+.candle.out::after {
+  content: "💨";
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 16px;
+  opacity: 0;
+  animation: smokePuff 1.2s ease-out forwards;
+}
+
+@keyframes smokePuff {
+  0% { opacity: 0.8; transform: translate(-50%, 0) scale(0.8); }
+  100% { opacity: 0; transform: translate(-50%, -18px) scale(1.3); }
+}
+
+.cake-btn {
+  margin-top: 20px;
+  padding: 15px 44px;
+  background: linear-gradient(90deg, var(--orchid), var(--coral));
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 10px 26px rgba(167, 104, 196, 0.4);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.cake-btn:hover:not(:disabled) {
+  transform: translateY(-4px) scale(1.04);
+}
+
+.cake-btn:disabled {
+  opacity: 0.75;
+  cursor: default;
+}
+
+/* ======================================================
+   MESSAGE CARD
+====================================================== */
+.gift-message {
+  margin-top: 60px;
+  padding: 45px;
+  width: 480px;
+  max-width: 90%;
+  background: linear-gradient(155deg, rgba(255, 255, 255, 0.65), rgba(214, 191, 232, 0.25));
+  border: 1px solid rgba(167, 104, 196, 0.35);
+  border-radius: 30px;
+  text-align: center;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 20px 60px rgba(167, 104, 196, 0.25);
+  z-index: 2;
+  animation: cakePop 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.floral-header {
+  font-size: 28px;
+  margin-bottom: 15px;
+}
+
+.gift-message h2 {
+  color: var(--orchid);
+  margin-bottom: 20px;
+}
+
+.gift-message p {
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--ink);
+}
+
+.secret-btn {
+  margin-top: 30px;
+  padding: 16px 48px;
+  background: linear-gradient(90deg, var(--coral), var(--orchid));
+  border: none;
+  border-radius: 50px;
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(167, 104, 196, 0.4);
+  transition: all 0.4s;
+}
+
+.secret-btn:hover {
+  transform: translateY(-5px) scale(1.05);
+}
+
+/* ======================================================
+   RESPONSIVE
+====================================================== */
+@media (max-width: 768px) {
+  .gift-section h1 { font-size: 34px; }
+  .gift { transform: scale(0.85); }
+  .gift.stage-closed:hover { transform: scale(0.9) rotate(1.5deg); }
+  .gift-message { padding: 30px 20px; width: 90%; }
+  .cake-content { padding: 36px 26px; }
+}
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .petal,
+  .falling-heart,
+  .gift.stage-closed:hover,
+  .gift-glow,
+  .cake,
+  .candle,
+  .gift-hint {
+    animation: none !important;
+  }
+}

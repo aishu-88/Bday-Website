@@ -1,0 +1,647 @@
+@import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Quicksand:wght@400;500;600;700&display=swap");
+
+.bh-hero {
+  --bg-deep: #241a3d;
+  --bg-mid: #3d2a5c;
+  --bg-sunset: #6b3f66;
+  --pastel-pink: #ffb3c6;
+  --pastel-pink-dark: #ff6f9e;
+  --lavender: #d8bfff;
+  --lavender-dark: #b294f5;
+  --mint: #e8a4a0;
+  --peach: #ffcba4;
+  --cream: #fff6ef;
+  --ink: #3a2450;
+  --gold-shine: #f6d9b3;
+
+  --rx: 0deg;
+  --ry: 0deg;
+
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1400px;
+  background:
+    radial-gradient(ellipse at 20% 20%, rgba(255, 179, 198, 0.3), transparent 55%),
+    radial-gradient(ellipse at 85% 15%, rgba(216, 191, 255, 0.28), transparent 55%),
+    radial-gradient(ellipse at 50% 95%, rgba(255, 203, 164, 0.2), transparent 60%),
+    linear-gradient(160deg, var(--bg-deep) 0%, var(--bg-mid) 55%, var(--bg-sunset) 100%);
+  font-family: "Quicksand", sans-serif;
+  color: var(--cream);
+  isolation: isolate;
+}
+
+/* ---------- 3D floating glow orbs (background depth) ---------- */
+.bh-hero::before,
+.bh-hero::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  z-index: 0;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  transform-style: preserve-3d;
+  animation: bh-orb-float ease-in-out infinite;
+}
+
+.bh-hero::before {
+  width: 380px;
+  height: 380px;
+  top: -90px;
+  left: -110px;
+  background: radial-gradient(circle at 35% 35%, var(--pastel-pink), transparent 70%);
+  animation-duration: 16s;
+  opacity: 0.8;
+}
+
+.bh-hero::after {
+  width: 420px;
+  height: 420px;
+  bottom: -130px;
+  right: -130px;
+  background: radial-gradient(circle at 40% 40%, var(--lavender), transparent 70%);
+  animation-duration: 19s;
+  animation-delay: -4s;
+  opacity: 0.75;
+}
+
+@keyframes bh-orb-float {
+  0%, 100% { transform: translate3d(0, 0, 0) rotateX(0deg) rotateY(0deg) scale(1); }
+  25% { transform: translate3d(30px, -25px, 45px) rotateX(15deg) rotateY(-10deg) scale(1.08); }
+  50% { transform: translate3d(-20px, 20px, -30px) rotateX(-10deg) rotateY(12deg) scale(0.94); }
+  75% { transform: translate3d(15px, 30px, 25px) rotateX(8deg) rotateY(-6deg) scale(1.04); }
+}
+
+/* ---------- Stars ---------- */
+.bh-stars {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.bh-stars::after {
+  content: "";
+  position: absolute;
+  top: 38%;
+  left: 42%;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 40%, var(--peach), transparent 70%);
+  filter: blur(70px);
+  opacity: 0.32;
+  mix-blend-mode: screen;
+  transform-style: preserve-3d;
+  animation: bh-orb-float 22s ease-in-out infinite;
+  animation-delay: -8s;
+  pointer-events: none;
+}
+
+.bh-star {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--gold-shine);
+  box-shadow: 0 0 6px var(--gold-shine);
+  animation: bh-twinkle ease-in-out infinite;
+  opacity: 0.6;
+}
+
+@keyframes bh-twinkle {
+  0%, 100% { opacity: 0.3; transform: scale(0.7); }
+  50% { opacity: 1; transform: scale(1.4); }
+}
+
+/* ---------- Balloons ---------- */
+.bh-balloons {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.bh-balloon {
+  position: absolute;
+  border-radius: 50% 50% 50% 50% / 55% 55% 45% 45%;
+  animation-name: bh-bob;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.22));
+}
+
+.bh-balloon::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -6px;
+  width: 8px;
+  height: 8px;
+  transform: translateX(-50%) rotate(45deg);
+  background: inherit;
+}
+
+.bh-balloon__string {
+  position: absolute;
+  left: 50%;
+  bottom: -34px;
+  width: 1px;
+  height: 34px;
+  background: rgba(255, 240, 230, 0.4);
+}
+
+.bh-balloon--pastel-pink { background: radial-gradient(circle at 35% 30%, #ff4d8d, var(--pastel-pink)); }
+.bh-balloon--lavender { background: radial-gradient(circle at 35% 30%, #e8d9ff, var(--lavender)); }
+.bh-balloon--mint { background: radial-gradient(circle at 35% 30%, #d4f0e4, var(--mint)); }
+.bh-balloon--peach { background: radial-gradient(circle at 35% 30%, #ffe8d1, var(--peach)); }
+
+@keyframes bh-bob {
+  0% { transform: translateY(0) rotate(-3deg); }
+  100% { transform: translateY(-22px) rotate(3deg); }
+}
+
+/* ---------- Falling Petals & Hearts ---------- */
+.bh-falling-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.bh-falling-item {
+  position: absolute;
+  top: -10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1em;
+  animation-name: bh-fall-gentle;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+  opacity: 0.85;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+
+.bh-falling--petal {
+  border-radius: 40% 60% 70% 30%;
+  transform: rotate(var(--rotate));
+}
+
+.bh-falling--heart {
+  font-size: 1.4em;
+}
+
+@keyframes bh-fall-gentle {
+  0% { 
+    transform: translateY(0) rotate(0deg); 
+    opacity: 0.9; 
+  }
+  100% { 
+    transform: translate(var(--drift), 110vh) rotate(var(--rotate)); 
+    opacity: 0; 
+  }
+}
+
+/* ---------- Content ---------- */
+.bh-content {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 2rem 1.25rem 3rem;
+  max-width: 640px;
+}
+
+.bh-eyebrow {
+  font-size: 0.88rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--lavender);
+  margin: 0 0 0.75rem;
+  font-weight: 600;
+}
+
+.bh-headline {
+  margin: 0 0 0.5rem;
+  font-family: "Baloo 2", cursive;
+  line-height: 1.05;
+}
+
+.bh-headline__small {
+  display: block;
+  font-size: clamp(1.4rem, 4vw, 2rem);
+  font-weight: 600;
+  color: var(--cream);
+  margin-bottom: 0.15em;
+}
+
+.bh-name {
+  display: block;
+  font-size: clamp(2.6rem, 9vw, 5rem);
+  font-weight: 800;
+  background: linear-gradient(105deg, var(--pastel-pink), var(--lavender) 45%, var(--mint));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.bh-letter {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(40px) scale(0.7);
+  animation: bh-letter-in 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes bh-letter-in {
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.bh-subtext {
+  margin: 0.5rem 0 2.5rem;
+  font-size: clamp(0.95rem, 2vw, 1.12rem);
+  color: rgba(255, 240, 230, 0.85);
+  font-weight: 500;
+}
+
+/* ---------- 3D Envelope ---------- */
+.bh-gift-scene {
+  position: relative;
+  width: min(92vw, 380px);
+  height: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1100px;
+}
+
+.bh-envelope {
+  position: relative;
+  width: var(--s);
+  height: calc(var(--s) * 0.72);
+  cursor: pointer;
+  transform-style: preserve-3d;
+  --tx: 0px;
+  --ty: 0px;
+  --trot: 0deg;
+  transform:
+    translate3d(var(--tx), var(--ty), 0)
+    rotate(var(--trot))
+    rotateX(calc(-12deg + var(--rx)))
+    rotateY(calc(18deg + var(--ry)));
+  transition: transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+  user-select: none;
+}
+
+/* Snappy, springy "boing" while actively dodging to a corner */
+.bh-envelope.dodging {
+  transition: transform 0.38s cubic-bezier(0.36, 0.07, 0.19, 1.35);
+}
+
+.bh-envelope.ready {
+  cursor: pointer;
+}
+
+.bh-envelope:focus-visible {
+  outline: 3px solid var(--gold-shine);
+  outline-offset: 12px;
+}
+
+/* Envelope Back */
+.bh-envelope-back {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--lavender), var(--pastel-pink-dark));
+  border: 3px solid rgba(255, 255, 255, 0.55);
+  border-radius: 4px 4px 12px 12px;
+  box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.18),
+              0 15px 35px rgba(58, 36, 80, 0.35);
+  transform: translateZ(-8px);
+}
+
+/* Envelope Front */
+.bh-envelope-front {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(145deg, var(--cream), #ffe0ea);
+  border: 3px solid rgba(255, 255, 255, 0.65);
+  border-radius: 4px 4px 12px 12px;
+  box-shadow: 0 8px 25px rgba(58, 36, 80, 0.28);
+}
+
+/* Flap */
+.bh-envelope-flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 58%;
+  background: linear-gradient(135deg, var(--peach), var(--pastel-pink-dark));
+  border-radius: 4px 4px 0 0;
+  transform-origin: top center;
+  transition: transform 0.9s cubic-bezier(0.25, 0.1, 0.25, 1);
+  z-index: 2;
+  box-shadow: 0 4px 12px rgba(58, 36, 80, 0.25);
+}
+
+.bh-envelope.is-open .bh-envelope-flap {
+  transform: rotateX(-125deg);
+}
+
+.bh-flap-triangle {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-left: 42px solid transparent;
+  border-right: 42px solid transparent;
+  border-bottom: 52px solid #ffe0ea;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+.bh-seal {
+  position: absolute;
+  top: 38%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.6rem;
+  z-index: 3;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+
+/* Hint */
+.bh-hint {
+  position: absolute;
+  bottom: -42px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--lavender);
+  animation: bh-hint-bounce 1.5s ease-in-out infinite;
+}
+
+@keyframes bh-hint-bounce {
+  0%, 100% { transform: translate(-50%, 0); }
+  50% { transform: translate(-50%, 5px); }
+}
+
+/* Attempts / progress label under the scene */
+.bh-attempts {
+  position: absolute;
+  bottom: -68px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: rgba(255, 240, 230, 0.65);
+}
+
+/* Funny speech-bubble taunt shown each time it dodges */
+.bh-taunt {
+  position: absolute;
+  top: -66px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--cream);
+  color: var(--pastel-pink-dark);
+  padding: 0.45rem 0.95rem;
+  border-radius: 14px;
+  font-family: "Quicksand", sans-serif;
+  font-weight: 700;
+  font-size: 0.85rem;
+  white-space: nowrap;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.28);
+  z-index: 6;
+  animation: bh-taunt-pop 1.1s ease forwards;
+}
+
+.bh-taunt::after {
+  content: "";
+  position: absolute;
+  bottom: -7px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-top: 7px solid var(--cream);
+}
+
+@keyframes bh-taunt-pop {
+  0% { opacity: 0; transform: translateX(-50%) translateY(10px) scale(0.4) rotate(-6deg); }
+  18% { opacity: 1; transform: translateX(-50%) translateY(0) scale(1.1) rotate(3deg); }
+  30% { transform: translateX(-50%) translateY(0) scale(1) rotate(0deg); }
+  78% { opacity: 1; }
+  100% { opacity: 0; transform: translateX(-50%) translateY(-10px) scale(0.9); }
+}
+
+/* ---------- Emoji burst on open ---------- */
+.bh-burst-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 4;
+}
+
+.bh-burst-item {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 1.6rem;
+  opacity: 0;
+  animation: bh-burst-fly 1s cubic-bezier(0.18, 0.75, 0.28, 1) forwards;
+}
+
+@keyframes bh-burst-fly {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(0.3) translate(0, 0) rotate(0deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.2) translate(var(--bx), var(--by)) rotate(180deg);
+  }
+}
+
+/* ---------- Message card ---------- */
+.bh-message-card {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: min(88vw, 360px);
+  max-height: min(85vh, 480px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  padding: 2rem 1.6rem 1.9rem;
+  background: rgba(255, 246, 239, 0.97);
+  color: var(--ink);
+  border-radius: 24px;
+  border: 4px solid var(--pastel-pink);
+  box-shadow: 0 30px 70px rgba(36, 26, 61, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.4) inset;
+  backdrop-filter: blur(6px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.8rem;
+  z-index: 5;
+  animation: bh-card-pop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s both;
+}
+
+.bh-message-card::-webkit-scrollbar { width: 6px; }
+.bh-message-card::-webkit-scrollbar-thumb { background: var(--lavender); border-radius: 10px; }
+
+@keyframes bh-card-pop {
+  0% { opacity: 0; transform: scale(0.4) rotate(-6deg); }
+  60% { opacity: 1; transform: scale(1.06) rotate(2deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+
+.bh-message-title {
+  margin: 0;
+  font-family: "Baloo 2", cursive;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--pastel-pink-dark);
+  animation: bh-title-zoom-pop 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 0.35s both;
+}
+
+@keyframes bh-title-zoom-pop {
+  0% { opacity: 0; transform: scale(0.15) rotate(-10deg); }
+  55% { opacity: 1; transform: scale(1.2) rotate(4deg); }
+  75% { transform: scale(0.94) rotate(-2deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+
+.bh-message-body {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.55;
+  font-weight: 500;
+  animation: bh-fade-up 0.6s ease 0.6s both;
+}
+
+.bh-message-signed {
+  margin: 0;
+  font-style: italic;
+  font-weight: 600;
+  color: var(--lavender);
+  animation: bh-fade-up 0.6s ease 0.75s both;
+}
+
+@keyframes bh-fade-up {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.hero-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.6rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  animation: bh-fade-up 0.6s ease 0.9s both;
+}
+
+.bh-replay,
+.bh-next {
+  border: none;
+  font-family: "Quicksand", sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  padding: 0.65rem 1.35rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.bh-replay {
+  background: rgba(178, 148, 245, 0.14);
+  color: var(--lavender-dark);
+  border: 2px solid var(--lavender);
+  box-shadow: none;
+}
+
+.bh-replay:hover {
+  background: rgba(178, 148, 245, 0.24);
+  transform: translateY(-2px);
+}
+
+.bh-next {
+  background: linear-gradient(90deg, var(--pastel-pink-dark), var(--lavender-dark));
+  color: #fff;
+  box-shadow: 0 6px 16px rgba(255, 111, 158, 0.35);
+}
+
+.bh-next:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 10px 22px rgba(255, 111, 158, 0.45);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 480px) {
+  .bh-gift-scene { 
+    height: 230px; 
+    width: min(92vw, 320px);
+  }
+  .bh-hint { bottom: -36px; font-size: 0.82rem; }
+  .bh-attempts { bottom: -60px; font-size: 0.74rem; }
+  .bh-taunt { font-size: 0.78rem; top: -58px; }
+  .bh-message-card {
+    padding: 1.6rem 1.3rem 1.6rem;
+    max-height: min(80vh, 440px);
+  }
+  .hero-actions {
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+  .bh-replay,
+  .bh-next {
+    width: 100%;
+  }
+}
+
+@media (max-width: 380px) {
+  .bh-envelope { --s: 180px; }
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .bh-star,
+  .bh-balloon,
+  .bh-letter,
+  .bh-hint,
+  .bh-message-card,
+  .bh-message-title,
+  .bh-message-body,
+  .bh-message-signed,
+  .bh-replay,
+  .bh-next,
+  .hero-actions,
+  .bh-taunt,
+  .bh-burst-item,
+  .bh-falling-item,
+  .bh-hero::before,
+  .bh-hero::after,
+  .bh-stars::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+  .bh-envelope,
+  .bh-envelope.dodging {
+    transition: none;
+  }
+}

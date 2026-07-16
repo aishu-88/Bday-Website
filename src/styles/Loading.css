@@ -1,0 +1,89 @@
+.lovegate-page {
+  width: 100%;
+  height: 100vh;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.lovegate-card {
+  width: 500px;
+  max-width: 90%;
+  min-height: 300px;
+  padding: 50px;
+  background: #0d0d0d;
+  border: 2px solid #ff4d8d;
+  border-radius: 18px;
+  box-shadow: 0 0 30px rgba(255, 77, 141, 0.5);
+  text-align: center;
+  color: #ffe6f0;
+  position: relative;
+}
+
+.lovegate-card h2 {
+  color: #ff4d8d;
+  margin-bottom: 10px;
+}
+
+.lovegate-buttons {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  position: relative;
+  height: 60px;
+}
+
+.yes-btn, .no-btn {
+  padding: 14px 34px;
+  border: none;
+  border-radius: 40px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.15s;
+}
+
+.yes-btn {
+  background: #ff4d8d;
+  color: white;
+}
+.yes-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 25px #ff4d8d;
+}
+
+.no-btn {
+  background: #222;
+  color: #ccc;
+  border: 1px solid #555;
+}
+
+.angry-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.angry-face {
+  font-size: 60px;
+  animation: shake 0.4s infinite;
+}
+
+.speech-bubble {
+  background: #1a1a1a;
+  border: 1px solid #ff4d8d;
+  border-radius: 14px;
+  padding: 14px 20px;
+  color: #ffb3d1;
+  font-size: 16px;
+}
+
+@keyframes shake {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-8deg); }
+  75% { transform: rotate(8deg); }
+}
