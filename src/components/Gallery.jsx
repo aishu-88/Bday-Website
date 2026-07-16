@@ -15,12 +15,12 @@ import {
   useTransform,
 } from "framer-motion";
 
-import img1 from "../assets/background/hug.png";
-import img2 from "../assets/background/moon.png";
-import img3 from "../assets/background/facetoface.png";
-import img4 from "../assets/background/hug.png";
-import img5 from "../assets/background/heart.png";
-import img6 from "../assets/background/night.png";
+import img1 from "../assets/background/hug.webp";
+import img2 from "../assets/background/moon.webp";
+import img3 from "../assets/background/facetoface.webp";
+import img4 from "../assets/background/hug.webp";
+import img5 from "../assets/background/nggt.webp";
+import img6 from "../assets/background/cloud.webp";
 
 const photos = [
   {
