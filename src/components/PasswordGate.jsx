@@ -19,7 +19,7 @@ function PasswordGate({ onSuccess }) {
   // build the 12 tiles once: every letter of the secret + random fillers, shuffled
   const tiles = useMemo(() => {
     const needed = [...new Set(SECRET.toUpperCase().split(""))]; // A I S H U
-    const fillerCount = 12 - needed.length;
+    const fillerCount = 16 - needed.length;
     const fillers = shuffle(FILLER_POOL).slice(0, fillerCount);
     return shuffle([...needed, ...fillers]).map((letter, i) => ({
       id: i,
@@ -142,7 +142,7 @@ function PasswordGate({ onSuccess }) {
           ))}
         </div>
 
-        {/* 12 letter tiles */}
+        {/* 16 letter tiles */}
         <div className="tile-grid">
           {tiles.map((tile) => (
             <button

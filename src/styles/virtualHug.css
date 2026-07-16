@@ -1,4 +1,52 @@
 /* ===========================
+   TUCKED-AWAY NAV — tiny replay / back controls
+=========================== */
+
+.vh-nav{
+position:absolute;
+top:14px;
+left:14px;
+display:flex;
+gap:8px;
+z-index:70;
+}
+
+.vh-nav-btn{
+width:32px;
+height:32px;
+display:flex;
+align-items:center;
+justify-content:center;
+border:1px solid rgba(255,255,255,0.35);
+border-radius:50%;
+background:rgba(0,0,0,0.35);
+color:#fff;
+font-size:15px;
+line-height:1;
+cursor:pointer;
+opacity:0.32;
+backdrop-filter:blur(4px);
+box-shadow:0 4px 10px rgba(0,0,0,0.35);
+transition:opacity .25s ease, transform .25s ease, background .25s ease;
+}
+
+.vh-nav-btn:hover,
+.vh-nav-btn:focus-visible{
+opacity:1;
+transform:scale(1.08);
+background:rgba(0,0,0,0.55);
+}
+
+.vh-nav-btn:active{
+transform:scale(0.94);
+}
+
+@media(max-width:768px){
+  .vh-nav{ top:10px; left:10px; gap:6px; }
+  .vh-nav-btn{ width:28px; height:28px; font-size:13px; opacity:0.4; }
+}
+
+/* ===========================
    FULL SCREEN SCENE
 =========================== */
 
@@ -81,7 +129,8 @@ will-change: filter, transform;
 
 .cloud{
 position:absolute;
-top:12%;
+/* top:12%; */
+top: -6%;
 left:-300px;
 width:clamp(150px,24vw,260px);
 opacity:.8;

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import "../styles/virtualHug.css";
 
-import night from "../assets/background/night.png";
+import night from "../assets/background/nggt.png";
 import moon from "../assets/background/moon.png";
 import cloud from "../assets/background/cloud.png";
 
@@ -20,7 +20,7 @@ import girlWalk4 from "../assets/characters/girl/grl3.png";
 import face from "../assets/background/facetoface.png";
 import hug from "../assets/background/hug.png";
 
-function VirtualHug({ onComplete }) {
+function VirtualHug({ onComplete, onBack }) {
 
 const audioRef = useRef(null);
   const boyFrames = [boyWalk1, boyWalk2, boyWalk3, boyWalk4];
@@ -30,6 +30,8 @@ const audioRef = useRef(null);
 
   const [boyFrame, setBoyFrame] = useState(0);
   const [girlFrame, setGirlFrame] = useState(0);
+
+  const timersRef = useRef([]);
 
 useEffect(() => {
 
@@ -60,7 +62,13 @@ useEffect(() => {
   }, []);
 
    // Scene Timeline - Updated timing
-  useEffect(() => {
+  const clearSceneTimers = () => {
+    timersRef.current.forEach(clearTimeout);
+    timersRef.current = [];
+  };
+
+  const runSceneTimeline = () => {
+    clearSceneTimers();
     // Boy and Girl start walking together
     const t1 = setTimeout(() => setScene(1), 800);   // Both start walking
 
@@ -74,19 +82,51 @@ useEffect(() => {
 
     const t6 = setTimeout(() => setScene(6), 19200); // Text - ~4.7s after hearts
 
-    return () => {
-      clearTimeout(t1);
-      clearTimeout(t2);
-      clearTimeout(t3);
-      clearTimeout(t4);
-      clearTimeout(t5);
-      clearTimeout(t6);
-    };
+    timersRef.current = [t1, t2, t3, t4, t5, t6];
+  };
+
+  useEffect(() => {
+    runSceneTimeline();
+    return clearSceneTimers;
   }, []);
+
+  const handleReplay = () => {
+    setScene(0);
+    setBoyFrame(0);
+    setGirlFrame(0);
+    runSceneTimeline();
+    if (audioRef.current) {
+      audioRef.current.currentTime = 0;
+      audioRef.current.play().catch(() => {});
+    }
+  };
 
   return (
 
     <div className="vh-scene">
+
+      <div className="vh-nav" aria-label="Navigation">
+        {onBack && (
+          <button
+            type="button"
+            className="vh-nav-btn"
+            onClick={onBack}
+            aria-label="Go back"
+            title="Back"
+          >
+            ←
+          </button>
+        )}
+        <button
+          type="button"
+          className="vh-nav-btn"
+          onClick={handleReplay}
+          aria-label="Replay"
+          title="Replay"
+        >
+          ⟲
+        </button>
+      </div>
 
       <img src={night} className="night" alt="" />
 

@@ -24,6 +24,53 @@
   overflow: hidden;
 }
 
+/* ======================================================
+   TUCKED-AWAY NAV — tiny, low-key replay / back controls
+====================================================== */
+.gift-nav {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  display: flex;
+  gap: 8px;
+  z-index: 50;
+}
+
+.gift-nav-btn {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(167, 104, 196, 0.25);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.55);
+  color: var(--wine);
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0.32;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 4px 10px rgba(167, 104, 196, 0.15);
+  transition: opacity 0.25s ease, transform 0.25s ease, background 0.25s ease;
+}
+
+.gift-nav-btn:hover,
+.gift-nav-btn:focus-visible {
+  opacity: 1;
+  transform: scale(1.08);
+  background: #fff;
+}
+
+.gift-nav-btn:active {
+  transform: scale(0.94);
+}
+
+@media (max-width: 480px) {
+  .gift-nav { top: 10px; left: 10px; gap: 6px; }
+  .gift-nav-btn { width: 26px; height: 26px; font-size: 12px; opacity: 0.4; }
+}
+
 .gift-small {
   color: var(--orchid);
   letter-spacing: 6px;
@@ -412,6 +459,8 @@
   align-items: center;
   justify-content: center;
   z-index: 1000;
+  padding: 16px;
+  box-sizing: border-box;
 }
 
 .cake-content {
@@ -420,7 +469,11 @@
   padding: 46px 40px;
   border-radius: 36px;
   text-align: center;
+  width: 100%;
   max-width: 420px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-sizing: border-box;
   border: 1px solid rgba(214, 191, 232, 0.6);
   box-shadow: 0 30px 70px rgba(167, 104, 196, 0.3);
   animation: cakePop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -597,6 +650,45 @@
   .gift.stage-closed:hover { transform: scale(0.9) rotate(1.5deg); }
   .gift-message { padding: 30px 20px; width: 90%; }
   .cake-content { padding: 36px 26px; }
+}
+
+@media (max-width: 480px) {
+  .gift-section { padding: 90px 16px; }
+  .gift-section h1 { font-size: 26px; margin-bottom: 46px; }
+  .gift-small { letter-spacing: 4px; font-size: 13px; }
+
+  .cake-content {
+    padding: 30px 20px;
+    border-radius: 26px;
+    max-width: 100%;
+  }
+  .cake-content h2 { font-size: 20px; margin-bottom: 8px; }
+  .cake-text { font-size: 14.5px; line-height: 1.55; }
+
+  .cake-scene { height: 78px; margin-bottom: 2px; }
+  .cake-whole { font-size: 72px; }
+  .cake-piece { font-size: 42px; }
+  .cake-content.cut .cake-piece.left { transform: translate(-125%, 4px) rotate(-12deg); }
+  .cake-content.cut .cake-piece.right { transform: translate(25%, 4px) rotate(12deg); }
+
+  .candles { font-size: 24px; gap: 8px; margin: 12px 0 4px; }
+
+  .cake-btn {
+    padding: 12px 30px;
+    font-size: 15px;
+    margin-top: 16px;
+  }
+
+  .gift-message { padding: 26px 18px; }
+  .gift-message p { font-size: 16px; }
+  .secret-btn { padding: 13px 34px; font-size: 16px; }
+}
+
+@media (max-width: 360px) {
+  .cake-scene { height: 66px; }
+  .cake-whole { font-size: 60px; }
+  .cake-piece { font-size: 34px; }
+  .candles { font-size: 20px; gap: 6px; }
 }
 
 /* Respect reduced motion preferences */

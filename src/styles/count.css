@@ -97,8 +97,9 @@
     padding: 35px 20px;
   }
   .timer { gap: 12px; }
-  .time-block { min-width: 70px; padding: 14px 8px; }
-  .time-value { font-size: 2.2rem; }
+  .time-block {         min-width: 67px;
+        padding: 5px 6px; }
+  .time-value { font-size: 1.9rem; }
   .countdown-page .yes-btn {
     padding: 14px 32px;
     font-size: 1.05rem;

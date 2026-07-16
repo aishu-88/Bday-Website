@@ -84,6 +84,27 @@
   z-index: 0;
 }
 
+.bh-stars::before {
+  content: "🤍";
+  position: absolute;
+  left: 12%;
+  top: -8%;
+  font-size: 1.3rem;
+  opacity: 0;
+  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.45));
+  transform-style: preserve-3d;
+  animation: bh-heart-fall 12s ease-in infinite;
+  animation-delay: -1s;
+  pointer-events: none;
+}
+
+@keyframes bh-heart-fall {
+  0% { transform: translateY(0) rotateX(0deg) rotateY(0deg); opacity: 0; }
+  12% { opacity: 0.55; }
+  80% { opacity: 0.35; }
+  100% { transform: translateY(640px) rotateX(220deg) rotateY(160deg); opacity: 0; }
+}
+
 .bh-stars::after {
   content: "";
   position: absolute;
@@ -253,8 +274,38 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  padding: 2rem 1.25rem 3rem;
+  padding: 1rem 1.25rem 2.5rem;
   max-width: 640px;
+  margin-top: -101px;
+}
+
+.bh-content::before,
+.bh-content::after {
+  content: "🤍";
+  position: absolute;
+  font-size: 1.1rem;
+  opacity: 0;
+  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.4));
+  transform-style: preserve-3d;
+  animation: bh-heart-fall ease-in infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.bh-content::before {
+  left: 4%;
+  top: -6%;
+  font-size: 1.15rem;
+  animation-duration: 14s;
+  animation-delay: -4s;
+}
+
+.bh-content::after {
+  right: 6%;
+  top: -10%;
+  font-size: 1.4rem;
+  animation-duration: 16s;
+  animation-delay: -8s;
 }
 
 .bh-eyebrow {
@@ -262,12 +313,12 @@
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--lavender);
-  margin: 0 0 0.75rem;
+  margin: 0 0 0.5rem;
   font-weight: 600;
 }
 
 .bh-headline {
-  margin: 0 0 0.5rem;
+  margin: 0 0 0.35rem;
   font-family: "Baloo 2", cursive;
   line-height: 1.05;
 }
@@ -302,7 +353,7 @@
 }
 
 .bh-subtext {
-  margin: 0.5rem 0 2.5rem;
+  margin: 0.4rem 0 1.6rem;
   font-size: clamp(0.95rem, 2vw, 1.12rem);
   color: rgba(255, 240, 230, 0.85);
   font-weight: 500;
@@ -317,6 +368,33 @@
   align-items: center;
   justify-content: center;
   perspective: 1100px;
+}
+
+.bh-gift-scene::before,
+.bh-gift-scene::after {
+  content: "🤍";
+  position: absolute;
+  font-size: 1rem;
+  opacity: 0;
+  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.4));
+  transform-style: preserve-3d;
+  animation: bh-heart-fall ease-in infinite;
+  pointer-events: none;
+}
+
+.bh-gift-scene::before {
+  left: 2%;
+  top: -10%;
+  animation-duration: 9s;
+  animation-delay: -2s;
+}
+
+.bh-gift-scene::after {
+  right: 4%;
+  top: -14%;
+  font-size: 1.2rem;
+  animation-duration: 10.5s;
+  animation-delay: -5s;
 }
 
 .bh-envelope {
@@ -591,17 +669,22 @@
   border: none;
   font-family: "Quicksand", sans-serif;
   font-weight: 700;
-  font-size: 0.9rem;
-  padding: 0.65rem 1.35rem;
+  font-size: 0.85rem;
+  line-height: 1.25;
+  padding: 0.6rem 1.1rem;
   border-radius: 999px;
   cursor: pointer;
   transition: all 0.2s ease;
-  white-space: nowrap;
+  box-sizing: border-box;
+  text-align: center;
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .bh-replay {
   background: rgba(178, 148, 245, 0.14);
-  color: var(--lavender-dark);
+ color: #fff;
   border: 2px solid var(--lavender);
   box-shadow: none;
 }
@@ -632,25 +715,20 @@
   .bh-attempts { bottom: -60px; font-size: 0.74rem; }
   .bh-taunt { font-size: 0.78rem; top: -58px; }
   .bh-message-card {
-    padding: 1.5rem 1.3rem 1.35rem;
-    gap: 0.6rem;
+    padding: 1.4rem 1.2rem 1.3rem;
+    gap: 0.55rem;
   }
-  .bh-message-body { font-size: 0.92rem; }
+  .bh-message-body { font-size: 0.9rem; }
   .hero-actions {
-    position: absolute;
-    left: 50%;
-    bottom: -56px;
-    transform: translateX(-50%);
-    flex-direction: row;
+    flex-direction: column;
     gap: 0.5rem;
-    width: max-content;
-    margin-top: 0;
+    margin-top: 0.5rem;
   }
   .bh-replay,
   .bh-next {
-    width: auto;
-    font-size: 0.8rem;
-    padding: 0.55rem 1rem;
+    width: 100%;
+    font-size: 0.78rem;
+    padding: 0.6rem 0.9rem;
   }
 }
 
@@ -679,7 +757,12 @@
   .bh-balloons::before,
   .bh-balloons::after,
   .bh-falling-layer::before,
-  .bh-falling-layer::after {
+  .bh-falling-layer::after,
+  .bh-stars::before,
+  .bh-content::before,
+  .bh-content::after,
+  .bh-gift-scene::before,
+  .bh-gift-scene::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
   }

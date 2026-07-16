@@ -2,7 +2,7 @@ import { useState } from "react";
 import FloatingHearts from "./FloatingHearts";
 import "../styles/giftBox.css";
 
-function GiftBox({ onOpenHeart }) {
+function GiftBox({ onOpenHeart, onBack }) {
   const [stage, setStage] = useState("closed"); // closed -> opening -> opened
   const [burst, setBurst] = useState(false);
   const [showCake, setShowCake] = useState(false);
@@ -35,8 +35,42 @@ function GiftBox({ onOpenHeart }) {
     }, 1500);
   };
 
+  const handleReplay = () => {
+    setStage("closed");
+    setBurst(false);
+    setShowCake(false);
+    setCakeCut(false);
+    setShowMessage(false);
+  };
+
   return (
     <section className="gift-section">
+      {/* Tucked-away controls: tiny and low-opacity so they don't compete
+          with the main surprise, but are there if she wants to go back
+          or watch the bloom again */}
+      <div className="gift-nav" aria-label="Navigation">
+        {onBack && (
+          <button
+            type="button"
+            className="gift-nav-btn"
+            onClick={onBack}
+            aria-label="Go back"
+            title="Back"
+          >
+            ←
+          </button>
+        )}
+        <button
+          type="button"
+          className="gift-nav-btn"
+          onClick={handleReplay}
+          aria-label="Replay"
+          title="Replay"
+        >
+          ⟲
+        </button>
+      </div>
+
       {/* ambient falling petals */}
       <div className="petal-field" aria-hidden="true">
         {[...Array(14)].map((_, i) => (
