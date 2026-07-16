@@ -116,52 +116,90 @@
   50% { opacity: 1; transform: scale(1.4); }
 }
 
-/* ---------- Balloons ---------- */
+/* ---------- 3D orbit rings (replaces balloons) ---------- */
 .bh-balloons {
   position: absolute;
   inset: 0;
   z-index: 1;
   pointer-events: none;
+  transform-style: preserve-3d;
 }
 
-.bh-balloon {
-  position: absolute;
-  border-radius: 50% 50% 50% 50% / 55% 55% 45% 45%;
-  animation-name: bh-bob;
-  animation-timing-function: ease-in-out;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
-  filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.22));
+.bh-balloon,
+.bh-balloon::before,
+.bh-balloon__string {
+  display: none;
 }
 
-.bh-balloon::before {
+.bh-balloons::before,
+.bh-balloons::after {
   content: "";
   position: absolute;
-  left: 50%;
-  bottom: -6px;
-  width: 8px;
-  height: 8px;
-  transform: translateX(-50%) rotate(45deg);
-  background: inherit;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  transform-style: preserve-3d;
+  animation: bh-ring-spin linear infinite;
+  opacity: 0.5;
 }
 
-.bh-balloon__string {
+.bh-balloons::before {
+  width: 170px;
+  height: 170px;
+  top: 8%;
+  left: 5%;
+  border-top-color: var(--pastel-pink);
+  border-right-color: var(--lavender);
+  animation-duration: 18s;
+}
+
+.bh-balloons::after {
+  width: 130px;
+  height: 130px;
+  bottom: 10%;
+  right: 7%;
+  border-top-color: var(--lavender);
+  border-right-color: var(--peach);
+  animation-duration: 14s;
+  animation-direction: reverse;
+}
+
+@keyframes bh-ring-spin {
+  0% { transform: rotateX(65deg) rotateZ(0deg); }
+  100% { transform: rotateX(65deg) rotateZ(360deg); }
+}
+
+/* Small floating 3D diamonds sprinkled through the scene */
+.bh-falling-layer::before,
+.bh-falling-layer::after {
+  content: "";
   position: absolute;
-  left: 50%;
-  bottom: -34px;
-  width: 1px;
-  height: 34px;
-  background: rgba(255, 240, 230, 0.4);
+  width: 26px;
+  height: 26px;
+  transform-style: preserve-3d;
+  background: linear-gradient(135deg, var(--pastel-pink), var(--lavender));
+  opacity: 0.4;
+  animation: bh-diamond-float ease-in-out infinite;
 }
 
-.bh-balloon--pastel-pink { background: radial-gradient(circle at 35% 30%, #ff4d8d, var(--pastel-pink)); }
-.bh-balloon--lavender { background: radial-gradient(circle at 35% 30%, #e8d9ff, var(--lavender)); }
-.bh-balloon--mint { background: radial-gradient(circle at 35% 30%, #d4f0e4, var(--mint)); }
-.bh-balloon--peach { background: radial-gradient(circle at 35% 30%, #ffe8d1, var(--peach)); }
+.bh-falling-layer::before {
+  top: 22%;
+  left: 12%;
+  animation-duration: 9s;
+}
 
-@keyframes bh-bob {
-  0% { transform: translateY(0) rotate(-3deg); }
-  100% { transform: translateY(-22px) rotate(3deg); }
+.bh-falling-layer::after {
+  top: 65%;
+  right: 14%;
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(135deg, var(--peach), var(--pastel-pink-dark));
+  animation-duration: 11s;
+  animation-delay: -3s;
+}
+
+@keyframes bh-diamond-float {
+  0%, 100% { transform: translateY(0) rotateX(0deg) rotateY(0deg) rotateZ(45deg); }
+  50% { transform: translateY(-40px) rotateX(180deg) rotateY(180deg) rotateZ(225deg); }
 }
 
 /* ---------- Falling Petals & Hearts ---------- */
@@ -479,10 +517,6 @@
   inset: 0;
   margin: auto;
   width: min(88vw, 360px);
-  max-height: min(85vh, 480px);
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  -webkit-overflow-scrolling: touch;
   padding: 2rem 1.6rem 1.9rem;
   background: rgba(255, 246, 239, 0.97);
   color: var(--ink);
@@ -498,9 +532,6 @@
   z-index: 5;
   animation: bh-card-pop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s both;
 }
-
-.bh-message-card::-webkit-scrollbar { width: 6px; }
-.bh-message-card::-webkit-scrollbar-thumb { background: var(--lavender); border-radius: 10px; }
 
 @keyframes bh-card-pop {
   0% { opacity: 0; transform: scale(0.4) rotate(-6deg); }
@@ -601,16 +632,25 @@
   .bh-attempts { bottom: -60px; font-size: 0.74rem; }
   .bh-taunt { font-size: 0.78rem; top: -58px; }
   .bh-message-card {
-    padding: 1.6rem 1.3rem 1.6rem;
-    max-height: min(80vh, 440px);
+    padding: 1.5rem 1.3rem 1.35rem;
+    gap: 0.6rem;
   }
+  .bh-message-body { font-size: 0.92rem; }
   .hero-actions {
-    flex-direction: column;
-    gap: 0.55rem;
+    position: absolute;
+    left: 50%;
+    bottom: -56px;
+    transform: translateX(-50%);
+    flex-direction: row;
+    gap: 0.5rem;
+    width: max-content;
+    margin-top: 0;
   }
   .bh-replay,
   .bh-next {
-    width: 100%;
+    width: auto;
+    font-size: 0.8rem;
+    padding: 0.55rem 1rem;
   }
 }
 
@@ -621,7 +661,6 @@
 /* ---------- Reduced motion ---------- */
 @media (prefers-reduced-motion: reduce) {
   .bh-star,
-  .bh-balloon,
   .bh-letter,
   .bh-hint,
   .bh-message-card,
@@ -636,7 +675,11 @@
   .bh-falling-item,
   .bh-hero::before,
   .bh-hero::after,
-  .bh-stars::after {
+  .bh-stars::after,
+  .bh-balloons::before,
+  .bh-balloons::after,
+  .bh-falling-layer::before,
+  .bh-falling-layer::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
   }
