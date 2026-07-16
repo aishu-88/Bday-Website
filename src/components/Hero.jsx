@@ -9,7 +9,7 @@ import "../styles/Hero.css";
  * Enhanced with vibrant rectangular confetti.
  */
 
-const BOYFRIEND_NAME = "SYAMU";
+const BOYFRIEND_NAME = "SYAMU ❤️";
 const BIRTHDAY_WISH =
   "Another trip around the sun for the person who makes every ordinary day feel like a good one. I hope today is as ridiculous, warm, and wonderful as you are. I love you.";
 const SIGNED_BY = "— your girl";
@@ -262,7 +262,7 @@ export default function Hero({ onNext }) {
 
         {/* No spoilers pre-open — the "Happy Birthday" reveal is locked inside the envelope */}
         <h1 className="bh-headline">
-          <span className="bh-headline__small">Syamu  ❤️</span>
+          {/* <span className="bh-headline__small">Syamu  ❤️</span> */}
           <span className="bh-name">
             {BOYFRIEND_NAME.split("").map((letter, i) => (
               <span key={i} className="bh-letter" style={{ animationDelay: `${0.4 + i * 0.08}s` }}>

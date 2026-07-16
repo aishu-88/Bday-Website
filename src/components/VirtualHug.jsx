@@ -1,24 +1,24 @@
 import { useEffect, useRef, useState } from "react";
 import "../styles/virtualHug.css";
 
-import night from "../assets/background/nggt.png";
-import moon from "../assets/background/moon.png";
-import cloud from "../assets/background/cloud.png";
+import night from "../assets/background/nggt.webp";
+import moon from "../assets/background/moon.webp";
+import cloud from "../assets/background/cloud.webp";
 
-import boyStand from "../assets/characters/boy/stand.png.png";
-import boyWalk1 from "../assets/characters/boy/boy2.png.png";
-import boyWalk2 from "../assets/characters/boy/boy3.png.png";
-import boyWalk3 from "../assets/characters/boy/boy4.png.png";
-import boyWalk4 from "../assets/characters/boy/boy5.png.png";
+import boyStand from "../assets/characters/boy/stand.png.webp";
+import boyWalk1 from "../assets/characters/boy/boy2.png.webp";
+import boyWalk2 from "../assets/characters/boy/boy3.png.webp";
+import boyWalk3 from "../assets/characters/boy/boy4.png.webp";
+import boyWalk4 from "../assets/characters/boy/boy5.png.webp";
 
-import girlStand from "../assets/characters/girl/5.png";
-import girlWalk1 from "../assets/characters/girl/grl2.png";
-import girlWalk2 from "../assets/characters/girl/grl3.png";
-import girlWalk3 from "../assets/characters/girl/grl4.png";
-import girlWalk4 from "../assets/characters/girl/grl3.png";
+import girlStand from "../assets/characters/girl/5.webp";
+import girlWalk1 from "../assets/characters/girl/grl2.webp";
+import girlWalk2 from "../assets/characters/girl/grl3.webp";
+import girlWalk3 from "../assets/characters/girl/grl4.webp";
+import girlWalk4 from "../assets/characters/girl/grl3.webp";
 
-import face from "../assets/background/facetoface.png";
-import hug from "../assets/background/hug.png";
+import face from "../assets/background/facetoface.webp";
+import hug from "../assets/background/hug.webp";
 
 function VirtualHug({ onComplete, onBack }) {
 
