@@ -262,7 +262,7 @@ export default function Hero({ onNext }) {
 
         {/* No spoilers pre-open — the "Happy Birthday" reveal is locked inside the envelope */}
         <h1 className="bh-headline">
-          {/* <span className="bh-headline__small">Syamu  ❤️</span> */}
+          <span className="bh-headline__small">Syamu  ❤️</span>
           <span className="bh-name">
             {BOYFRIEND_NAME.split("").map((letter, i) => (
               <span key={i} className="bh-letter" style={{ animationDelay: `${0.4 + i * 0.08}s` }}>

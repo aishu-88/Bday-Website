@@ -15,37 +15,43 @@ import {
   useTransform,
 } from "framer-motion";
 
-import img1 from "../assets/background/hug.webp";
-import img2 from "../assets/background/moon.webp";
-import img3 from "../assets/background/facetoface.webp";
-import img4 from "../assets/background/hug.webp";
-import img5 from "../assets/background/nggt.webp";
-import img6 from "../assets/background/cloud.webp";
+import img1 from "../assets/gallery/ph2.webp";
+import img2 from "../assets/gallery/ph1.webp";
+import img3 from "../assets/gallery/ph3.webp";
+import img4 from "../assets/gallery/ph4.webp";
+import img5 from "../assets/gallery/ph5.jpeg";
+import img6 from "../assets/gallery/ph6.webp";
+import img7 from "../assets/gallery/ph7.webp";
+
 
 const photos = [
   {
     image: img1,
-    caption: "Our First Meet",
-  },
-  {
-    image: img2,
     caption: "Beach Evening",
   },
   {
+    image: img2,
+    caption: "Together",
+  },
+  {
     image: img3,
-    caption: "Forever ❤️",
+    caption: "Recent Trip",
   },
   {
     image: img4,
-    caption: "Beautiful Smile",
+    caption: "Forever ❤️",
   },
   {
     image: img5,
-    caption: "Together",
+    caption: "Beautiful Memory",
   },
   {
     image: img6,
     caption: "Love",
+  },
+  {
+    image: img7,
+    caption: "Random",
   },
 ];
 
